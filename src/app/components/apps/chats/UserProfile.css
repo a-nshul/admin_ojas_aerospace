@@ -1,0 +1,122 @@
+.header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 30px; 
+  }
+  
+  .header h1 {
+    color: #fff; 
+    font-size: 2.5rem; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+  }
+  
+  .header {
+    background-color: rgba(255, 255, 255, 0.05); 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+  }
+.user-container {
+    padding: 40px;
+    min-height: 100vh;
+    border-radius: 12px; 
+    color: #e0e0e0; 
+    
+}
+
+.user-card {
+    background-color: #2c3034; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #e0e0e0; 
+}
+
+.user-card:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.user-card .ant-card-body {
+    padding: 20px; 
+}
+
+.user-card h3 {
+    font-size: 1.6rem;
+    color: #fff; 
+    margin-bottom: 1rem;
+}
+
+.user-card p {
+    font-size: 0.9rem;
+    color: #b0b0b0; 
+    line-height: 1.6;
+}
+
+.user-card p strong {
+    color: #007bff; 
+    font-weight: 600;
+}
+
+.user-card .ant-card-actions {
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.user-card .ant-card-actions > button {
+    margin-left: 8px; 
+    border: none; 
+    background-color: transparent; 
+    cursor: pointer; 
+    color: #b0b0b0; 
+}
+
+.user-card .ant-card-actions > button:hover {
+    color: #007bff; 
+}
+.edit-form {
+    padding: 16px;
+    background-color: #2c3034;
+    border-radius: 8px;
+    color: #e0e0e0;
+  }
+  
+  .edit-form .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .edit-form .ant-form-item-label > label {
+    color: #b0b0b0;
+  }
+  
+  .edit-form .ant-input,
+  .edit-form .ant-input-textarea {
+    background-color: #3a3f44;
+    border: none;
+    color: #e0e0e0;
+  }
+  
+  .edit-form .ant-input:focus,
+  .edit-form .ant-input-textarea:focus {
+    box-shadow: 0 0 5px #007bff;
+    border: 1px solid #007bff;
+  }
+  
+  .form-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  
+  .form-footer button {
+    border-radius: 4px;
+    padding: 6px 16px;
+  }
+  
+  .form-footer button:hover {
+    opacity: 0.9;
+  }
+  
