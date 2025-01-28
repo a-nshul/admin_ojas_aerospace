@@ -20,29 +20,64 @@ const Users = () => {
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  const getCachedData = () => {
-    const cachedData = localStorage.getItem('users');
-    if (cachedData) {
-      const { timestamp, data } = JSON.parse(cachedData);
-      const cacheAge = 1000 * 60 * 5; 
-      if (Date.now() - timestamp < cacheAge) {
-        return data; 
-      }
-    }
-    return null;
-  };
+//   const getCachedData = () => {
+//     const cachedData = localStorage.getItem('users');
+//     if (cachedData) {
+//       const { timestamp, data } = JSON.parse(cachedData);
+//       const cacheAge = 1000 * 60 * 5; 
+//       if (Date.now() - timestamp < cacheAge) {
+//         return data; 
+//       }
+//     }
+//     return null;
+//   };
 
 
-  const fetchUsers = async (page = 1) => {
+//   const fetchUsers = async (page = 1) => {
+//     setLoading(true);
+//     try {
+//       const token = localStorage.getItem('token');
+//       const adminId = localStorage.getItem('adminId');
+
+//       if (!adminId) {
+//         message.error('Admin ID is missing. Please log in again.');
+//         return;
+//       }
+//       const response = await axios.get('http://13.126.247.129:3001/api/admin/get/user/', {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           'Admin-ID': adminId,
+//         },
+//         params: {
+//           page: page,
+//           pageSize: pagination.pageSize,
+//         },
+//       });
+
+//       setUsers(response.data.user);
+//       setPagination((prev) => ({
+//         ...prev,
+//         total: response.data.totalCount, 
+//       }));
+      
+//     //   setCacheData(response.data.user); 
+//     } catch (error) {
+//       message.error(error.response?.data?.message || 'Failed to fetch users.');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+const fetchUsers = async (page = 1) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
       const adminId = localStorage.getItem('adminId');
-
+  
       if (!adminId) {
         message.error('Admin ID is missing. Please log in again.');
         return;
       }
+  
       const response = await axios.get('http://13.126.247.129:3001/api/admin/get/user/', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,21 +88,19 @@ const Users = () => {
           pageSize: pagination.pageSize,
         },
       });
-
-      setUsers(response.data.user);
+  
+      setUsers(response.data.user); // Update the user list
       setPagination((prev) => ({
         ...prev,
-        total: response.data.totalCount, 
+        total: response.data.totalCount,
       }));
-      
-    //   setCacheData(response.data.user); 
-    console.log("egdvegde", response.data.user)
     } catch (error) {
       message.error(error.response?.data?.message || 'Failed to fetch users.');
     } finally {
       setLoading(false);
     }
   };
+  
   const handleTableChange = (pagination) => {
     setPagination(pagination);
     fetchUsers(pagination.current);
@@ -82,10 +115,29 @@ const Users = () => {
     setIsModalVisible(true);
   };
   const showEditModal = (user) => {
-    setSelectedUser(user);
+    setSelectedUser(user); // Set the selected user
     setIsEditModalVisible(true);
-    form.setFieldsValue(user);
+  
+    // Extract address fields if available
+    const address = user.address?.[0] || {};
+  
+    // Map user data and address to form fields
+    form.setFieldsValue({
+      name: user.name || '',
+      username: user.username || '',
+      mobileNo: user.mobileNo || '',
+      description: user.description || '',
+      state: address.state || '',
+      district: address.district || '',
+      pinCode: address.pinCode || '',
+      area: address.area || '',
+      locationType: address.locationType || '',
+      latitude: address.latitude || '',
+      longitude: address.longitude || '',
+    });
   };
+  
+  
 
   const handleEditCancel = () => {
     setIsEditModalVisible(false);
@@ -119,12 +171,13 @@ const Users = () => {
       );
 
       message.success(response.data.message);
-      fetchUsers(); // Refresh user list after successful update
+      fetchUsers();
       setIsEditModalVisible(false);
     } catch (error) {
       message.error(error.response?.data?.message || 'Failed to update user.');
     }
   };
+  
   const handleCancel = () => {
     setIsModalVisible(false);
     setIsAddModalVisible(false)

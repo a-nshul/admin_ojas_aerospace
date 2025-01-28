@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { message, Spin, Card, Col, Row, Button,Modal ,Form,Input,Select,DatePicker} from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import moment from 'moment';
 import '../../apps/chats/UserProfile.css';
 
 const Farmers = () => {
@@ -101,11 +102,33 @@ const Farmers = () => {
     setIsAddModalVisible(false)
     setSelectedFarmer(null);
   };
-  const showEditModal = (user) => {
-    setSelectedFarmer(user);
+  const showEditModal = (farmer) => {
+    const irrigationStatus = farmer.farmDetails.irrigation ? farmer.farmDetails.irrigation.status : 'N/A';
+    const flattenedData = {
+        farmerName: farmer.farmerName,
+        mobileNo: farmer.mobileNo,
+        farmName: farmer.farmDetails.farmName,
+        farmArea: farmer.farmDetails.farmArea,
+        farmAreaUnit: farmer.farmDetails.farmAreaUnit,
+        farmStatus: farmer.farmDetails.farmStatus,
+        address: farmer.farmDetails.address,
+        state: farmer.farmDetails.state,
+        pincode: farmer.farmDetails.pincode,
+        locationCoordinates: farmer.farmDetails.location.coordinates.join(','),
+        irrigationStatus,
+        cropDetails: farmer.cropDetails.map(crop => ({
+            nameOfCrop: crop.nameOfCrop,
+            cropArea: crop.cropArea,
+            cropAreaUnit: crop.cropAreaUnit,
+            cropDescription: crop.cropDescription,
+            sowingDate: moment(crop.sowingDate),
+        }))
+    };
+    setSelectedFarmer(farmer);
     setIsEditModalVisible(true);
-    form.setFieldsValue(user);
-  };
+    form.setFieldsValue(flattenedData);
+};
+
   const handleEditCancel = () => {
     setIsEditModalVisible(false);
     setSelectedFarmer(null);
@@ -144,9 +167,9 @@ const handleAddSave = async () => {
             type: "Point",
             coordinates: values.location?.coordinates || [] // Expecting an array like [lat, long]
           },
-          status:
-            values.irrigation?.status || []
-          ,
+          irrigation: {
+            status: values.irrigationStatus, // Map the value correctly here
+          },
           plot: {
             type: "Polygon",
             coordinates: values.plot?.coordinates || [] // If plot coordinates are provided
@@ -174,14 +197,20 @@ const handleAddSave = async () => {
           },
         }
       );
-      
       message.success(response.data.message);
       fetchFarmers(); 
       setIsAddModalVisible(false); 
       
     } catch (error) {
-      message.error(error.response?.data?.message || 'Failed to add farmer.');
-    }
+        if (error.response) {
+          console.error("Error Response:", error.response.data);
+          message.error(error.response.data.message || 'Failed to add farmer.');
+        } else {
+          console.error("Error:", error);
+          message.error('An error occurred while adding the farmer.');
+        }
+      }
+      
   };
   const handleEditSave = async () => {
     try {
@@ -204,7 +233,7 @@ const handleAddSave = async () => {
           },
         }
       );
-
+      console.log('Update Response:', response.data); 
       message.success(response.data.message);
       fetchFarmers(); 
       setIsEditModalVisible(false);
@@ -337,7 +366,12 @@ const handleAddSave = async () => {
             <Form.Item
               name="farmArea"
               label="Farm Area"
-              rules={[{ required: true, message: "Please enter the farm area" }]}
+              rules={[{ required: true, message: "Please enter the farm area" },
+                {
+                    pattern: /^[0-9]+(\.[0-9]{1,2})?$/,
+                    message: "Enter a valid decimal number (e.g., 10.5 or 10)"
+                  }]
+                }
             >
               <Input className="w-full" placeholder="Enter farm area" />
             </Form.Item>
@@ -366,9 +400,9 @@ const handleAddSave = async () => {
 
             {/* Irrigation Status */}
             <Form.Item
-              name="status"
+              name="irrigationStatus"
               label="Irrigation Status"
-              rules={[{ required: true, message: "Please select irrigation status" }]}
+              rules={[{ required: false, message: "Please select irrigation status" }]}
             >
               <Select placeholder="Select irrigation status">
                 <Option value="irrigated">Irrigated</Option>

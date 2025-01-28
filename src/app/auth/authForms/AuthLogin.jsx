@@ -67,8 +67,6 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         password,
       });
   
-      console.log('Login Response:', response.data); // Log the entire response to see its structure
-  
       if (response.data) {
         const admin = response.data.admin;
   
@@ -82,11 +80,9 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
         localStorage.setItem('admin', JSON.stringify(admin));
         localStorage.setItem('adminId', admin.id);
         message.success('Login successful!');
-        // Navigate to the desired page after login
-        router.push('/');
+        router.push('/apps/chats');
       }
     } catch (error) {
-      console.error('Login Error:', error); // Log the error for better troubleshooting
       message.error(
         error.response?.data?.message || 'Login failed. Please check your credentials.'
       );
