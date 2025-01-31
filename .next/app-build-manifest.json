@@ -1,5 +1,21 @@
 {
   "pages": {
+    "/(DashboardLayout)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(DashboardLayout)/page.js"
+    ],
+    "/(DashboardLayout)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(DashboardLayout)/layout.css",
+      "static/chunks/app/(DashboardLayout)/layout.js"
+    ],
+    "/(DashboardLayout)/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(DashboardLayout)/loading.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,32 +32,17 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
-    ],
-    "/auth/auth1/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/auth/auth1/login/page.js"
-    ],
     "/(DashboardLayout)/apps/chats/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/(DashboardLayout)/apps/chats/page.css",
       "static/chunks/app/(DashboardLayout)/apps/chats/page.js"
     ],
-    "/(DashboardLayout)/layout": [
+    "/(DashboardLayout)/apps/notes/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(DashboardLayout)/layout.css",
-      "static/chunks/app/(DashboardLayout)/layout.js"
-    ],
-    "/(DashboardLayout)/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/loading.js"
+      "static/css/app/(DashboardLayout)/apps/notes/page.css",
+      "static/chunks/app/(DashboardLayout)/apps/notes/page.js"
     ]
   }
 }

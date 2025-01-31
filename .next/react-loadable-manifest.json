@@ -1,1 +1,44 @@
-{}
+{
+  "app/components/dashboards/modern/Customers.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/Customers.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  },
+  "app/components/dashboards/modern/EmployeeSalary.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/EmployeeSalary.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  },
+  "app/components/dashboards/modern/MonthlyEarnings.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/MonthlyEarnings.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  },
+  "app/components/dashboards/modern/Projects.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/Projects.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  },
+  "app/components/dashboards/modern/RevenueUpdates.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/RevenueUpdates.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  },
+  "app/components/dashboards/modern/WeeklyStats.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/WeeklyStats.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  },
+  "app/components/dashboards/modern/YearlyBreakup.jsx -> react-apexcharts": {
+    "id": "app/components/dashboards/modern/YearlyBreakup.jsx -> react-apexcharts",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-apexcharts_dist_react-apexcharts_min_js.js"
+    ]
+  }
+}
