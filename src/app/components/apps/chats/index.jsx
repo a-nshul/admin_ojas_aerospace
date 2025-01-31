@@ -19,55 +19,7 @@ const Users = () => {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [form] = Form.useForm();
-
-//   const getCachedData = () => {
-//     const cachedData = localStorage.getItem('users');
-//     if (cachedData) {
-//       const { timestamp, data } = JSON.parse(cachedData);
-//       const cacheAge = 1000 * 60 * 5; 
-//       if (Date.now() - timestamp < cacheAge) {
-//         return data; 
-//       }
-//     }
-//     return null;
-//   };
-
-
-//   const fetchUsers = async (page = 1) => {
-//     setLoading(true);
-//     try {
-//       const token = localStorage.getItem('token');
-//       const adminId = localStorage.getItem('adminId');
-
-//       if (!adminId) {
-//         message.error('Admin ID is missing. Please log in again.');
-//         return;
-//       }
-//       const response = await axios.get('http://13.126.247.129:3001/api/admin/get/user/', {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           'Admin-ID': adminId,
-//         },
-//         params: {
-//           page: page,
-//           pageSize: pagination.pageSize,
-//         },
-//       });
-
-//       setUsers(response.data.user);
-//       setPagination((prev) => ({
-//         ...prev,
-//         total: response.data.totalCount, 
-//       }));
-      
-//     //   setCacheData(response.data.user); 
-//     } catch (error) {
-//       message.error(error.response?.data?.message || 'Failed to fetch users.');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-const fetchUsers = async (page = 1) => {
+  const fetchUsers = async (page = 1) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
@@ -89,7 +41,7 @@ const fetchUsers = async (page = 1) => {
         },
       });
   
-      setUsers(response.data.user); // Update the user list
+      setUsers(response.data.user);
       setPagination((prev) => ({
         ...prev,
         total: response.data.totalCount,
@@ -150,33 +102,64 @@ const fetchUsers = async (page = 1) => {
   };
   const handleEditSave = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const adminId = localStorage.getItem('adminId');
+        const token = localStorage.getItem('token');
+        const adminId = localStorage.getItem('adminId');
 
-      if (!adminId) {
-        message.error('Admin ID is missing. Please log in again.');
-        return;
-      }
-
-      const updatedData = form.getFieldsValue();
-      const response = await axios.put(
-        `http://13.126.247.129:3001/api/admin/update/user/${selectedUser._id}`,
-        updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Admin-ID': adminId,
-          },
+        if (!adminId) {
+            message.error('Admin ID is missing. Please log in again.');
+            return;
         }
-      );
 
-      message.success(response.data.message);
-      fetchUsers();
-      setIsEditModalVisible(false);
+        // Manually construct the updatedData object based on the API structure
+        const updatedData = {
+            name: form.getFieldValue('name'),
+            username: form.getFieldValue('username'),
+            mobileNo: form.getFieldValue('mobileNo'),
+            description: form.getFieldValue('description'),
+            address: [
+                {
+                    state: form.getFieldValue('state'),
+                    district: form.getFieldValue('district'),
+                    pinCode: form.getFieldValue('pinCode'),
+                    area: form.getFieldValue('area'),
+                    locationType: form.getFieldValue('locationType'),
+                    latitude: form.getFieldValue('latitude'),
+                    longitude: form.getFieldValue('longitude'),
+                },
+            ],
+            referral: [
+                {
+                    referralCode: form.getFieldValue('referralCode') || '',
+                    totalrefer: form.getFieldValue('totalrefer') || 0,
+                    referralUsers: [],
+                },
+            ],
+        };
+
+        // console.log('Updated Data:', updatedData);
+
+        const response = await axios.put(
+            `http://13.126.247.129:3001/api/admin/update/user/${selectedUser._id}`,
+            updatedData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Admin-ID': adminId,
+                },
+            }
+        );
+
+        message.success(response.data.message);
+        console.log('Updated Data:', updatedData);
+
+        fetchUsers(); // Refresh user list
+        setIsEditModalVisible(false); // Close modal
     } catch (error) {
-      message.error(error.response?.data?.message || 'Failed to update user.');
+        console.error('Update Error:', error);
+        message.error(error.response?.data?.message || 'Failed to update user.');
     }
-  };
+};
+
   
   const handleCancel = () => {
     setIsModalVisible(false);

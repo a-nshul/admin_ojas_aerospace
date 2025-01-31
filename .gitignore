@@ -7,15 +7,40 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.next
+out
 dist
 dist-ssr
-*.local
+.vercel
+.netlify
+.cache
+
+# Local environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js build artifacts
+.next/
+.next/cache/
+.next/static/
+
+# Static output
+out/
+out/_next/
+out/_next/static/
+
+# OS-specific files
+.DS_Store
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
