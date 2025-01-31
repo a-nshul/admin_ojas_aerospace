@@ -1,14 +1,9 @@
 {
   "pages": {
-    "/not-found": [
+    "/auth/auth1/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/not-found.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/auth/auth1/login/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -20,6 +15,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/not-found.js"
     ],
     "/(DashboardLayout)/apps/chats/page": [
       "static/chunks/webpack.js",
@@ -37,12 +37,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(DashboardLayout)/loading.js"
-    ],
-    "/(DashboardLayout)/apps/notes/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(DashboardLayout)/apps/notes/page.css",
-      "static/chunks/app/(DashboardLayout)/apps/notes/page.js"
     ]
   }
 }
